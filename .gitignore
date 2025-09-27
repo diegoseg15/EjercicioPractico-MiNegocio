@@ -1,16 +1,54 @@
-# Compiled class file
+# ================================
+# Ignorar archivos comunes en todos los microservicios
+# ================================
+**/HELP.md
+**/target/
+**/build/
+**/.mvn/wrapper/maven-wrapper.jar
+
+# Permitir targets y builds dentro de src (si existieran por test/ejemplos)
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# ================================
+# IDEs y herramientas
+# ================================
+# Eclipse / Spring Tool Suite (STS)
+**/.apt_generated
+**/.classpath
+**/.factorypath
+**/.project
+**/.settings
+**/.springBeans
+**/.sts4-cache
+
+# IntelliJ IDEA
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr
+
+# NetBeans
+**/nbproject/private/
+**/nbbuild/
+**/dist/
+**/nbdist/
+**/.nb-gradle/
+
+# Visual Studio Code
+**/.vscode/
+
+# ================================
+# Archivos compilados / temporales
+# ================================
 *.class
-
-# Log file
 *.log
-
-# BlueJ files
 *.ctxt
-
-# Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Paquetes
 *.jar
 *.war
 *.nar
@@ -19,6 +57,24 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Dumps de JVM
 hs_err_pid*
 replay_pid*
+
+# ================================
+# Docker
+# ================================
+# Evitar que los volúmenes y artefactos generados se suban
+**/docker-compose.override.yml
+**/docker-compose.override.*.yml
+**/.docker/
+**/docker-data/
+**/*.env
+.env
+.env.*
+
+# ================================
+# Sistema Operativo
+# ================================
+.DS_Store
+Thumbs.db
