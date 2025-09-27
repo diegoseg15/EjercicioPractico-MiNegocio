@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS citext;
+
 -- Tablas Usuarios
 
 CREATE TABLE users (
@@ -58,7 +60,7 @@ CREATE TABLE customer_addresses (
   alias TEXT,
   street TEXT NOT NULL,
   city TEXT,
-  state TEXT,
+  province TEXT,
   country TEXT,
   zip TEXT,
   is_headquarters BOOLEAN NOT NULL DEFAULT false,
@@ -91,9 +93,9 @@ CREATE EXTENSION IF NOT EXISTS citext;
 -- Datos de ejemplo
 -- =======================
 
-INSERT INTO users (email, password_hash, full_name)
+INSERT INTO users (email, password, full_name)
 VALUES
-('admin@minegocio.com', 'fsdasfdsdfw', 'Admin'),
+('admin@minegocio.com', 'fsdasfdsdfw', 'Admin');
 
 INSERT INTO roles (scope, code, name)
 VALUES
