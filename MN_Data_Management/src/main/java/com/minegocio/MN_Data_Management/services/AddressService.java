@@ -12,7 +12,15 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class AddressService {
 
-    
+    private final AddressRepository addressRepository;
+
+    public Mono<Address> saveAddress(Long clientId, Address c) {
+        return addressRepository.save(c)
+                .flatMap(address -> {
+                    address.setCustomerId(clientId);
+                    return addressRepository.save(address);
+                });
+    }
 
     
 }
