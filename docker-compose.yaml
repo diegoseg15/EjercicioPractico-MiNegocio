@@ -1,0 +1,25 @@
+version: '1.0'
+services:
+  database-minegocio:
+    image: postgres:17
+    container_name: database-minegocio
+    restart: unless-stopped
+    environment: 
+      POSTGRES_USER: ${DB_ADMIN_USER}
+      POSTGRES_PASSWORD: ${DB_ADMIN_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./MN_DATABASE/Data:/var/lib/postgresql/data
+      - ./MN_DATABASE/pg-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5433:5432"
+    networks:
+      - MN_network
+
+networks:
+  MN_network:
+    driver: bridge
+
+volumes:
+  database-minegocio:
+    driver: local
