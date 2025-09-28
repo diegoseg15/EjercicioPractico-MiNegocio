@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minegocio.MN_Data_Management.DTO.CustomerAddressesDTO;
+import com.minegocio.MN_Data_Management.domain.Address;
 import com.minegocio.MN_Data_Management.domain.Customer;
+import com.minegocio.MN_Data_Management.services.AddressService;
 import com.minegocio.MN_Data_Management.services.CustomerService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @CrossOrigin
 @RequiredArgsConstructor
 public class CustomersController {
+
+    private final AddressService addressService;
 
     @Autowired
     private CustomerService customerService;
@@ -63,13 +67,17 @@ public class CustomersController {
 
     // Funcionalidad para eliminar un cliente
     @DeleteMapping("/clientes/eliminar/{companyId}/{identification}")
-    public Mono<Customer> deleteCustomer(@PathVariable Long companyId, @PathVariable String identification){
+    public Mono<Customer> deleteCustomer(@PathVariable Long companyId, @PathVariable String identification) {
         return customerService.delete(companyId, identification);
     }
 
     // Funcionalidad para registrar una nueva dirección por cliente
-    
+    @PostMapping("/direcciones/agregar/{companyId}/{customerIdetification}")
+    public Mono<Address> postMethodName(@PathVariable Long companyId, @PathVariable String customerIdetification,
+            @RequestBody Address entity) {
+        return addressService.save(companyId, customerIdetification, entity);
+    }
 
     // Funcionalidad para listar las direcciones adicionales del cliente
-
+   
 }
