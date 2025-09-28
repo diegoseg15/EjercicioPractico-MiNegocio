@@ -1,21 +1,24 @@
 package com.minegocio.MN_Data_Management.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.minegocio.MN_Data_Management.DTO.CustomerAddressesDTO;
 import com.minegocio.MN_Data_Management.domain.Customer;
 import com.minegocio.MN_Data_Management.services.CustomerService;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/data")
@@ -45,8 +48,13 @@ public class CustomersController {
     }
 
     // Funcionalidad para crear un nuevo cliente con la dirección matriz
+    @PostMapping("/clientes/agregar/matriz")
+    public Mono<Customer> postSaveCustomerMatriz(@RequestBody CustomerAddressesDTO entity) {
+        return customerService.saveCustomerMatriz(entity);
+    }
 
     // Funcionalidad para editar los datos del cliente
+
 
     // Funcionalidad para eliminar un cliente
 
