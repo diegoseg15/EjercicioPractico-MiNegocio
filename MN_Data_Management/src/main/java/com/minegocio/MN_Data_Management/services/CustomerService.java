@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.minegocio.MN_Data_Management.DTO.CustomerAddressesDTO;
 import com.minegocio.MN_Data_Management.domain.Address;
 import com.minegocio.MN_Data_Management.domain.Customer;
-import com.minegocio.MN_Data_Management.repositories.AddressRepository;
 import com.minegocio.MN_Data_Management.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
@@ -44,8 +43,17 @@ public class CustomerService {
                 });
     }
 
-    // public Mono<Address> update(String identification, Customer c){
-    // return customerRepository.findById(id)
-
-    // }
+    public Mono<Customer> update(Long companyId, String identification, Customer c){
+        return customerRepository.findByCompanyAndIdentification(companyId, identification)
+                .flatMap(existcustomer -> {
+                    existcustomer.setIdentificacion(c.getIdentification());
+                    existcustomer.setIdentificacionType(c.getIdentificationType());
+                    existcustomer.setName(c.getName());
+                    existcustomer.setLastname(c.getLastname());
+                    existcustomer.setCompanyId(c.getCompanyId());
+                    existcustomer.setEmail(c.getEmail());
+                    existcustomer.setPhone(c.getPhone());
+                    return customerRepository.save(existcustomer);
+                });
+    }
 }
