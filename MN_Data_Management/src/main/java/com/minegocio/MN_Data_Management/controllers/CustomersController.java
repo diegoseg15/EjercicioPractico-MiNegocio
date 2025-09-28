@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minegocio.MN_Data_Management.domain.Customer;
+import com.minegocio.MN_Data_Management.services.CustomerService;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/data-client")
@@ -21,10 +24,26 @@ import reactor.core.publisher.Mono;
 public class CustomersController {
 
     @Autowired
-    private CustomersController customersController;
+    private CustomerService customerService;
 
-    // @GetMapping("/lista-clientes")
-    // public Mono<ResponseEntity<Customer>> getCustomers(@PathVariable String identification) {
-        
-    // }
+    // Funcionalidad para obtener un listado de clientes.
+    @GetMapping("/clientes/lista")
+    public Flux<Customer> getAllCustomers() {
+        return customerService.getAll();
+    }
+
+    // Funcionalidad para buscar clientes por Nombre o Apellido
+
+    // Funcionalidad para buscar clientes por Identificación
+
+    // Funcionalidad para crear un nuevo cliente con la dirección matriz
+
+    // Funcionalidad para editar los datos del cliente
+
+    // Funcionalidad para eliminar un cliente
+
+    // Funcionalidad para registrar una nueva dirección por cliente
+
+    // Funcionalidad para listar las direcciones adicionales del cliente
+
 }
