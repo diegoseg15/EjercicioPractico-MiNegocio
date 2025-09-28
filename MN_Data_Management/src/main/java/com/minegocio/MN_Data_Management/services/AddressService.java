@@ -12,7 +12,10 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class AddressService {
 
+    private final CustomerService customerService;
+
     private final AddressRepository addressRepository;
+
 
     public Mono<Address> saveAddressMatriz(Long clientId, Address c) {
 
@@ -24,11 +27,11 @@ public class AddressService {
                 });
     }
 
-    public Mono<Address> saveAddress(Long clientId, Address c) {
-        return addressRepository.save(c)
-                .flatMap(address -> {
-                    address.setCustomerId(clientId);
-                    return addressRepository.save(address);
+    public Mono<Address> save(Long companyId, String customerIdetification, Address c) {
+        return customerService.getByCompanyandIdentification(companyId, customerIdetification)
+                .flatMap(custommer -> {
+                    c.setCustomerId(custommer.getId());
+                    return addressRepository.save(c);
                 });
     }
 
