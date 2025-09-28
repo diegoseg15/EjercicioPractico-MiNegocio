@@ -23,8 +23,8 @@ public class CustomerService {
         return customerRepository.findByIdentification(identification).next();
     }
 
-    public Flux<Customer> getCustomerByName(String Name) {
-        return customerRepository.searchByFullName(Name);
+    public Flux<Customer> getCustomerByName(String name) {
+        return customerRepository.searchByFullName(name);
     }
 
     public Mono<Customer> saveCustomer(Customer c) {
