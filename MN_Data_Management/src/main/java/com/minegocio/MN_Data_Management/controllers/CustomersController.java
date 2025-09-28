@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/data-client")
+@RequestMapping("/api/v1/data")
 @CrossOrigin
 @RequiredArgsConstructor
 public class CustomersController {
@@ -33,6 +33,10 @@ public class CustomersController {
     }
 
     // Funcionalidad para buscar clientes por Nombre o Apellido
+    @GetMapping("/clientes/buscar-nombre/{name}")
+    public Flux<Customer> getCustomerByFullName(@PathVariable String name) {
+        return customerService.getCustomerByName(name);
+    }
 
     // Funcionalidad para buscar clientes por Identificación
 
