@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Table("customers")
 public class Customer {
 
@@ -13,11 +15,13 @@ public class Customer {
     private Long id;
 
     @Column("company_id")
+    @JsonProperty("companyId")
     private Long companyId;
 
     private String identification;
 
     @Column("identification_type")
+    @JsonProperty("identificationType")
     private String identification_Type;
     private String name;
     private String lastname;
@@ -45,6 +49,14 @@ public class Customer {
     }
 
     // Getters y Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getIdentification() {
         return identification;
