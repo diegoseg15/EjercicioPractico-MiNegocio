@@ -43,7 +43,7 @@ public class CustomerService {
                 });
     }
 
-    public Mono<Customer> update(Long companyId, String identification, Customer c){
+    public Mono<Customer> update(Long companyId, String identification, Customer c) {
         return customerRepository.findByCompanyAndIdentification(companyId, identification)
                 .flatMap(existcustomer -> {
                     existcustomer.setIdentificacion(c.getIdentification());
@@ -55,5 +55,9 @@ public class CustomerService {
                     existcustomer.setPhone(c.getPhone());
                     return customerRepository.save(existcustomer);
                 });
+    }
+
+    public Mono<Customer> delete(Long companyId, String identification) {
+        return customerRepository.deleteByIdentificationAndCompanyId(companyId, identification);
     }
 }
