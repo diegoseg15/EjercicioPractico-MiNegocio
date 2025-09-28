@@ -26,6 +26,10 @@ public class CustomerService {
         return customerRepository.findByIdentification(identification).next();
     }
 
+    public Mono<Customer> getByCompanyandIdentification(Long companyId, String identification) {
+        return customerRepository.findByCompanyAndIdentification(companyId, identification);
+    }
+
     public Flux<Customer> getCustomerByName(String name) {
         return customerRepository.searchByFullName(name);
     }
