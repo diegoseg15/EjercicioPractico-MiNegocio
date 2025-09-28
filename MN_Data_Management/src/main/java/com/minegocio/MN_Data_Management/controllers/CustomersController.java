@@ -62,8 +62,13 @@ public class CustomersController {
     }
 
     // Funcionalidad para eliminar un cliente
+    @DeleteMapping("/clientes/eliminar/{companyId}/{identification}")
+    public Mono<Customer> deleteCustomer(@PathVariable Long companyId, @PathVariable String identification){
+        return customerService.delete(companyId, identification);
+    }
 
     // Funcionalidad para registrar una nueva dirección por cliente
+    
 
     // Funcionalidad para listar las direcciones adicionales del cliente
 
