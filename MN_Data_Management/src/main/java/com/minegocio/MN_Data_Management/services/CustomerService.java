@@ -2,6 +2,8 @@ package com.minegocio.MN_Data_Management.services;
 
 import org.springframework.stereotype.Service;
 
+import com.minegocio.MN_Data_Management.DTO.CustomerAddressesDTO;
+import com.minegocio.MN_Data_Management.domain.Address;
 import com.minegocio.MN_Data_Management.domain.Customer;
 import com.minegocio.MN_Data_Management.repositories.AddressRepository;
 import com.minegocio.MN_Data_Management.repositories.CustomerRepository;
@@ -12,6 +14,8 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
+
+    private final AddressService addressService;
 
     private final CustomerRepository customerRepository;
 
@@ -27,15 +31,21 @@ public class CustomerService {
         return customerRepository.searchByFullName(name);
     }
 
-    public Mono<Customer> saveCustomer(Customer c) {
-        return customerRepository.save(c)
-                .flatMap(customer -> {
-                    return customerRepository.save(customer);
+    public Mono<Customer> saveCustomerMatriz(CustomerAddressesDTO ca) {
+        return customerRepository.save(ca.getCustomer())
+                .flatMap(saved -> {
+                    Address addr = ca.getAddress();
+                    if (addr == null) {
+                        return Mono.just(saved);
+                    }
+                    addr.setCustomerId(saved.getId());
+                    return addressService.saveAddressMatriz(addr.getCustomerId(), addr)
+                            .thenReturn(saved);
                 });
     }
 
     // public Mono<Address> update(String identification, Customer c){
-    //     return customerRepository.findById(id)
-            
+    // return customerRepository.findById(id)
+
     // }
 }
