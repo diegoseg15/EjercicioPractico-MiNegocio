@@ -14,6 +14,16 @@ public class AddressService {
 
     private final AddressRepository addressRepository;
 
+    public Mono<Address> saveAddressMatriz(Long clientId, Address c) {
+
+        return addressRepository.save(c)
+                .flatMap(add -> {
+                    add.setCustomerId(clientId);
+                    add.setIsHeadquarters(true);
+                    return addressRepository.save(add);
+                });
+    }
+
     public Mono<Address> saveAddress(Long clientId, Address c) {
         return addressRepository.save(c)
                 .flatMap(address -> {
@@ -21,6 +31,4 @@ public class AddressService {
                     return addressRepository.save(address);
                 });
     }
-
-    
 }
