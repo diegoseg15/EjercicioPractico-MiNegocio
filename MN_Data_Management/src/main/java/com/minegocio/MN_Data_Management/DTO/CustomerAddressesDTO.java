@@ -1,6 +1,5 @@
 package com.minegocio.MN_Data_Management.DTO;
 
-import com.minegocio.MN_Data_Management.domain.Address;
 import com.minegocio.MN_Data_Management.domain.Customer;
 
 import jakarta.validation.Valid;
@@ -12,12 +11,12 @@ public class CustomerAddressesDTO {
   private Customer customer;
   @Valid
   @NotNull(message = "Address cannot be null")
-  private Address address;
+  private AddressDTO address;
 
   public CustomerAddressesDTO() {
   }
 
-  public CustomerAddressesDTO(Customer customer, Address address) {
+  public CustomerAddressesDTO(Customer customer, AddressDTO address) {
     this.customer = customer;
     this.address = address;
   }
@@ -30,11 +29,11 @@ public class CustomerAddressesDTO {
     this.customer = customer;
   }
 
-  public Address getAddress() {
+  public AddressDTO getAddress() {
     return address;
   }
 
-  public void setAddress(Address address) {
+  public void setAddress(AddressDTO address) {
     this.address = address;
   }
 }
