@@ -2,7 +2,9 @@ package com.minegocio.MN_Data_Management.services;
 
 import org.springframework.stereotype.Service;
 
+import com.minegocio.MN_Data_Management.DTO.AddressDTO;
 import com.minegocio.MN_Data_Management.DTO.CustomerAddressesDTO;
+import com.minegocio.MN_Data_Management.DTO.CustomerDTO;
 import com.minegocio.MN_Data_Management.domain.Address;
 import com.minegocio.MN_Data_Management.domain.Customer;
 import com.minegocio.MN_Data_Management.repositories.CustomerRepository;
@@ -34,20 +36,24 @@ public class CustomerService {
         return customerRepository.searchByFullName(name);
     }
 
-    public Mono<Customer> saveCustomerMatriz(CustomerAddressesDTO ca) {
-        return customerRepository.save(ca.getCustomer())
+    public Mono<CustomerAddressesDTO> saveCustomerMatriz(CustomerAddressesDTO ca) {
+        Customer c = ca.getCustomer();
+        AddressDTO a = ca.getAddress();
+
+        return customerRepository
+                .findByCompanyAndIdentification(c.getCompanyId(), c.getIdentification())
+                .switchIfEmpty(customerRepository.save(c))
                 .flatMap(saved -> {
-                    Address addr = ca.getAddress();
-                    if (addr == null) {
-                        return Mono.just(saved);
-                    }
-                    addr.setCustomerId(saved.getId());
-                    return addressService.saveAddressMatriz(addr.getCustomerId(), addr)
-                            .thenReturn(saved);
+                    if (a == null)
+                        return Mono.just(new CustomerAddressesDTO(saved, null));
+                    a.setIsHeadquarters(true);
+                    return addressService
+                            .saveAddressMatriz(c.getCompanyId(), c.getIdentification(), a)
+                            .thenReturn(new CustomerAddressesDTO(saved, a));
                 });
     }
 
-    public Mono<Customer> update(Long companyId, String identification, Customer c) {
+    public Mono<Customer> update(Long companyId, String identification, CustomerDTO c) {
         return customerRepository.findByCompanyAndIdentification(companyId, identification)
                 .flatMap(existcustomer -> {
                     existcustomer.setIdentificacion(c.getIdentification());
