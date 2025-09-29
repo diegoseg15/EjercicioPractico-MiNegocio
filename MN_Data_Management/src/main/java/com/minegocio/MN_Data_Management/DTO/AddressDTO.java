@@ -12,8 +12,6 @@ import jakarta.validation.constraints.NotNull;
 
 @Table("customer_addresses")
 public class AddressDTO {
-    @NotBlank(message = "CustomerId is required")
-    private Long customerId;
 
     @NotBlank(message = "Alias is required")
     private String alias;
@@ -38,9 +36,8 @@ public class AddressDTO {
     public AddressDTO() {
     }
 
-    public AddressDTO(Long customerId, String alias, String street, String city, String province, String country,
+    public AddressDTO( String alias, String street, String city, String province, String country,
             String zip, Boolean isHeadquarters) {
-        this.customerId = customerId;
         this.alias = alias;
         this.street = street;
         this.city = city;
@@ -50,13 +47,6 @@ public class AddressDTO {
         this.isHeadquarters = isHeadquarters;
     }
 
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
 
     public String getAlias() {
         return alias;
