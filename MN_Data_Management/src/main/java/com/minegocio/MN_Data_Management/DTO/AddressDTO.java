@@ -2,6 +2,8 @@ package com.minegocio.MN_Data_Management.DTO;
 
 import org.springframework.data.relational.core.mapping.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.validation.constraints.NotBlank;
 
 @Table("customer_addresses")
@@ -25,6 +27,7 @@ public class AddressDTO {
     @NotBlank(message = "Zip is required")
     private String zip;
 
+    @JsonProperty("isHeadquarters")
     private Boolean isHeadquarters;
 
     public AddressDTO() {
@@ -70,7 +73,7 @@ public class AddressDTO {
         return province;
     }
 
-    public void setProvice(String province) {
+    public void setProvince(String province) {
         this.province = province;
     }
 
