@@ -24,7 +24,7 @@ public interface CustomerRepository extends ReactiveCrudRepository<Customer, Lon
   @Query("SELECT c.* FROM customers c WHERE (LOWER(c.name  || ' ' || c.lastname)) LIKE LOWER(CONCAT('%', :q, '%'))")
   Flux<Customer> searchByFullName(String q);
 
-  @Query("DELETE FROM customers WHERE company_id = :companyId AND identification = :identification RETURNING count(*)")
+  @Query("WITH deleted AS (DELETE FROM customers WHERE company_id = :companyId AND identification = :identification RETURNING 1) SELECT COUNT(*)::bigint FROM deleted")
   Mono<Long> deleteByIdentificationAndCompanyId(Long companyId, String identification);
 
 }
