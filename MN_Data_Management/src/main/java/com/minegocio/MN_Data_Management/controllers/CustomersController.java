@@ -27,11 +27,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/v1/data")
 @CrossOrigin
 @RequiredArgsConstructor
+
 public class CustomersController {
-
-    private final AddressService addressService;
-
-    @Autowired
+    
+    private AddressService addressService;
     private CustomerService customerService;
 
     // Funcionalidad para obtener un listado de clientes.
@@ -67,7 +66,7 @@ public class CustomersController {
 
     // Funcionalidad para eliminar un cliente
     @DeleteMapping("/clientes/eliminar/{companyId}/{identification}")
-    public Mono<Customer> deleteCustomer(@PathVariable Long companyId, @PathVariable String identification) {
+    public Mono<Void> deleteCustomer(@PathVariable Long companyId, @PathVariable String identification) {
         return customerService.delete(companyId, identification);
     }
 
@@ -79,5 +78,8 @@ public class CustomersController {
     }
 
     // Funcionalidad para listar las direcciones adicionales del cliente
-   
+    @GetMapping("/direcciones/identificacion/{companyId}/{identification}")
+    public Flux<Address> getCustomerByIdentification(@PathVariable Long companyId, @PathVariable String identification) {
+        return addressService.findByCompanyAndIdentification(companyId, identification);
+    }
 }
