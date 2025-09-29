@@ -22,7 +22,7 @@ public class Customer {
 
     @Column("identification_type")
     @JsonProperty("identificationType")
-    private String identification_Type;
+    private String identificationType;
     private String name;
     private String lastname;
     private String email;
@@ -37,10 +37,10 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String identification, String identification_Type, String name, String lastname, String email,
+    public Customer(String identification, String identificationType, String name, String lastname, String email,
             String phone, Long companyId) {
         this.identification = identification;
-        this.identification_Type = identification_Type;
+        this.identificationType = identificationType;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
@@ -67,11 +67,11 @@ public class Customer {
     }
 
     public String getIdentificationType() {
-        return identification_Type;
+        return identificationType;
     }
 
-    public void setIdentificacionType(String identification_Type) {
-        this.identification_Type = identification_Type;
+    public void setIdentificacionType(String identificationType) {
+        this.identificationType = identificationType;
     }
 
     public String getName() {
