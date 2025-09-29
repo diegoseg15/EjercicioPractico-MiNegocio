@@ -1,10 +1,9 @@
-version: '1.0'
 services:
   database-minegocio:
     image: postgres:17
     container_name: database-minegocio
     restart: unless-stopped
-    environment: 
+    environment:
       POSTGRES_USER: ${DB_ADMIN_USER}
       POSTGRES_PASSWORD: ${DB_ADMIN_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
@@ -13,13 +12,25 @@ services:
       - ./MN_DATABASE/pg-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     ports:
       - "5433:5432"
-    networks:
-      - MN_network
+    networks: [MN_network]
+
+  management-minegocio:
+    build:
+      context: ./MN_Data_Management
+      dockerfile: Dockerfile
+    container_name: management-minegocio
+    restart: unless-stopped
+    depends_on: [database-minegocio]
+    environment:
+      SPRING_R2DBC_URL: r2dbc:postgresql://database-minegocio:5432/${POSTGRES_DB}
+      SPRING_R2DBC_USERNAME: ${DB_ADMIN_USER}
+      SPRING_R2DBC_PASSWORD: ${DB_ADMIN_PASSWORD}
+      SERVER_PORT: "8080"
+      SPRING_PROFILES_ACTIVE: "prod"
+    ports:
+      - "8080:8080"
+    networks: [MN_network]
 
 networks:
   MN_network:
     driver: bridge
-
-volumes:
-  database-minegocio:
-    driver: local
