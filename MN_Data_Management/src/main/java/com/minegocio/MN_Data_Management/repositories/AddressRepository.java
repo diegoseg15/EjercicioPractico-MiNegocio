@@ -12,12 +12,15 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface AddressRepository extends ReactiveCrudRepository<Address, Long> {
+    // SELECT por empresa e identificación del cliente
     @Query("SELECT a.* FROM customer_addresses a JOIN customers c ON c.id = a.customer_id WHERE c.company_id = :companyId AND c.identification = :identification")
     Flux<Address> findByCompanyAndIdentification(Long companyId, String identification);
 
+    // INSERT de la dirección por medio de companyId e identification
     @Query("INSERT INTO customer_addresses (customer_id, alias, street, city, province, country, zip, is_headquarters, created_at, updated_at) SELECT c.id, :#{#a.alias}, :#{#a.street}, :#{#a.city}, :#{#a.province}, :#{#a.country}, :#{#a.zip}, COALESCE(:#{#a.isHeadquarters}, false), now(), now() FROM customers c WHERE c.company_id = :companyId AND c.identification = :customerIdentification RETURNING *;")
     Mono<Address> saveByCompanyAndIdentification(Long companyId, String customerIdentification, AddressDTO a);
 
+    //INSTER normal de la direeción
     @Query("INSERT INTO customer_addresses (customer_id, alias, street, city, province, country, zip, is_headquarters, created_at, updated_at) VALUES (:a);")
     Mono<AddressDTO> save(AddressDTO a);
 
