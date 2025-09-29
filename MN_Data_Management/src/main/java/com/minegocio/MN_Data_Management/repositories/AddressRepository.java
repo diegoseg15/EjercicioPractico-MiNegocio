@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.minegocio.MN_Data_Management.DTO.AddressDTO;
 import com.minegocio.MN_Data_Management.domain.Address;
 
 import reactor.core.publisher.Flux;
@@ -16,5 +17,9 @@ public interface AddressRepository extends ReactiveCrudRepository<Address, Long>
     Flux<Address> findByCompanyAndIdentification(Long companyId, String identification);
 
     @Query("INSERT INTO customer_addresses (customer_id, alias, street, city, province, country, zip, is_headquarters, created_at, updated_at) SELECT c.id, :#{#a.alias}, :#{#a.street}, :#{#a.city}, :#{#a.province}, :#{#a.country}, :#{#a.zip}, COALESCE(:#{#a.isHeadquarters}, false), now(), now() FROM customers c WHERE c.company_id = :companyId AND c.identification = :customerIdentification RETURNING *;")
-    Mono<Address> saveByCompanyAndIdentification(Long companyId, String customerIdentification, Address a);
+    Mono<Address> saveByCompanyAndIdentification(Long companyId, String customerIdentification, AddressDTO a);
+
+    @Query("INSERT INTO customer_addresses (customer_id, alias, street, city, province, country, zip, is_headquarters, created_at, updated_at) VALUES (:a);")
+    Mono<AddressDTO> save(AddressDTO a);
+
 }
