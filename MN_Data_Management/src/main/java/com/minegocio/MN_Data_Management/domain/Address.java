@@ -82,7 +82,7 @@ public class Address {
         return province;
     }
 
-    public void setProvice(String province) {
+    public void setProvince(String province) {
         this.province = province;
     }
 

@@ -62,7 +62,7 @@ public class Customer {
         return identification;
     }
 
-    public void setIdentificacion(String identification) {
+    public void setIdentification(String identification) {
         this.identification = identification;
     }
 
