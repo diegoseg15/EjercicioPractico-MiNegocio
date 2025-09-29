@@ -1,6 +1,8 @@
 package com.minegocio.MN_Data_Management.services;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.minegocio.MN_Data_Management.DTO.AddressDTO;
 import com.minegocio.MN_Data_Management.DTO.CustomerAddressesDTO;
@@ -55,7 +57,7 @@ public class CustomerService {
     public Mono<Customer> update(Long companyId, String identification, CustomerDTO c) {
         return customerRepository.findByCompanyAndIdentification(companyId, identification)
                 .flatMap(existcustomer -> {
-                    existcustomer.setIdentificacion(c.getIdentification());
+                    existcustomer.setIdentification(c.getIdentification());
                     existcustomer.setIdentificacionType(c.getIdentificationType());
                     existcustomer.setName(c.getName());
                     existcustomer.setLastname(c.getLastname());
@@ -67,6 +69,14 @@ public class CustomerService {
     }
 
     public Mono<Void> delete(Long companyId, String identification) {
-        return customerRepository.deleteByIdentificationAndCompanyId(companyId, identification);
+        return customerRepository.deleteByIdentificationAndCompanyId(companyId, identification)
+                .flatMap(count -> {
+                    if (count > 0) {
+                        return Mono.empty(); // ✅ eliminado con éxito
+                    } else {
+                        return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
+                    }
+                });
     }
+
 }
