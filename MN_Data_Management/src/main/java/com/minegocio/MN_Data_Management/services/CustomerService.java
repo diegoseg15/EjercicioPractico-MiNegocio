@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.minegocio.MN_Data_Management.DTO.AddressDTO;
 import com.minegocio.MN_Data_Management.DTO.CustomerAddressesDTO;
 import com.minegocio.MN_Data_Management.DTO.CustomerDTO;
-import com.minegocio.MN_Data_Management.domain.Address;
 import com.minegocio.MN_Data_Management.domain.Customer;
 import com.minegocio.MN_Data_Management.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;

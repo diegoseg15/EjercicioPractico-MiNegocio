@@ -1,14 +1,8 @@
 package com.minegocio.MN_Data_Management.DTO;
 
-import java.time.Instant;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Table("customer_addresses")
 public class AddressDTO {
