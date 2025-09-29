@@ -25,6 +25,6 @@ public interface CustomerRepository extends ReactiveCrudRepository<Customer, Lon
   Flux<Customer> searchByFullName(String q);
 
   @Query("DELETE FROM customers WHERE company_id = :companyId AND identification = :identification;")
-  Mono<Customer> deleteByIdentificationAndCompanyId(Long companyId, String identification);
+  Mono<Void> deleteByIdentificationAndCompanyId(Long companyId, String identification);
 
 }
