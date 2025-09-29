@@ -61,7 +61,7 @@ public class CustomerService {
                 });
     }
 
-    public Mono<Customer> delete(Long companyId, String identification) {
+    public Mono<Void> delete(Long companyId, String identification) {
         return customerRepository.deleteByIdentificationAndCompanyId(companyId, identification);
     }
 }
