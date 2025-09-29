@@ -1,7 +1,10 @@
 package com.minegocio.MN_Data_Management.services;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Service;
 
+import com.minegocio.MN_Data_Management.DTO.AddressDTO;
 import com.minegocio.MN_Data_Management.domain.Address;
 import com.minegocio.MN_Data_Management.repositories.AddressRepository;
 
@@ -15,13 +18,12 @@ public class AddressService {
 
     private final AddressRepository addressRepository;
 
-    public Mono<Address> saveAddressMatriz(Long customerId, Address a) {
-        a.setCustomerId(customerId);
+    public Mono<Address> saveAddressMatriz(Long companyId, String customerIdentification, AddressDTO a) {
         a.setIsHeadquarters(true);
-        return addressRepository.save(a);
+        return addressRepository.saveByCompanyAndIdentification(companyId, customerIdentification, a);
     }
 
-    public Mono<Address> save(Long companyId, String customerIdentification, Address a) {
+    public Mono<Address> save(Long companyId, String customerIdentification, AddressDTO a) {
         return addressRepository.saveByCompanyAndIdentification(companyId, customerIdentification, a);
     }
 
