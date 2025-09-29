@@ -117,7 +117,7 @@ VALUES
 (2, '1809876543', 'CEDULA', 'Ana', 'Mendoza', 'ana.mendoza@hotmail.com', '0954444444'),
 (2, '1798888888001', 'RUC', 'Panificadora Ambato', '', 'contacto@panificadoraambato.com', '032222333');
 
-INSERT INTO customer_addresses (customer_id, alias, street, city, state, country, zip, is_headquarters)
+INSERT INTO customer_addresses (customer_id, alias, street, city, province, country, zip, is_headquarters)
 VALUES
 (2, 'Matriz', 'Av. Amazonas y Colón', 'Quito', 'Pichincha', 'Ecuador', '170101', true),
 (2, 'Sucursal Ambato', 'Parque Industrial', 'Ambato', 'Tungurahua', 'Ecuador', '180150', false),
