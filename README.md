@@ -80,15 +80,27 @@ server.port=8086
 * **Consultar clientes**
 
   ```http
-  GET /api/v1/data/clientes/{companyId}
+  GET /api/v1/data/clientes/lista
+  ```
+
+* **Consultar clientes por nombre y/o apellido**
+
+  ```http
+  GET /api/v1/data/clientes/buscar-nombre/{name}
+  ```
+
+* **Consultar clientes por identificación (cedula, pasaporte o ruc)**
+
+  ```http
+  GET /api/v1/data/clientes/buscar-nombre/{identification}
   ```
 
 ### Direcciones
 
-* **Agregar dirección**
+* **Agregar dirección con la matriz**
 
   ```http
-  POST /api/v1/data/direcciones/agregar
+  POST /api/v1/data/direcciones/agregar/{companyId}/{identification}
   ```
 
 * **Listar direcciones de un cliente**
@@ -117,7 +129,7 @@ server.port=8086
 
 ---
 
-## 🧪 Tests
+## Tests
 
 Ejecutar pruebas unitarias y de integración:
 
