@@ -67,46 +67,97 @@ server.port=8086
 
 * **Agregar cliente matriz**
 
-  ```http
   POST /api/v1/data/clientes/agregar/matriz
-  ```
 
+  ```http
+  http://localhost:8080/api/v1/data/clientes/agregar/matriz
+  ```
+  Body:
+  
+  ```json
+  {
+    "customer": {
+        "companyId": 2,
+        "identification": "1701342275",
+        "identificationType": "CEDULA",
+        "name": "Juan",
+        "lastname": "Sanchez",
+        "email": "mario.andrade@gmail.com",
+        "phone": "0987654333"
+    },
+    "address": {
+        "alias": "Matriz",
+        "street": "Av. Cevallo y Quito",
+        "city": "Latacunga",
+        "province": "Tungurahua",
+        "country": "Ecuador",
+        "zip": "180101", 
+        "isHeadquarters": true
+    }
+  }
+  ```
 * **Eliminar cliente**
 
-  ```http
   DELETE /api/v1/data/clientes/eliminar/{companyId}/{identification}
+
+  ```http
+  http://localhost:8080/api/v1/data/clientes/eliminar/2/1701342275
   ```
 
 * **Consultar clientes**
 
-  ```http
   GET /api/v1/data/clientes/lista
+
+  ```http
+  http://localhost:8080/api/v1/data/clientes/lista
   ```
 
 * **Consultar clientes por nombre y/o apellido**
 
-  ```http
   GET /api/v1/data/clientes/buscar-nombre/{name}
+
+  ```http
+  http://localhost:8080/api/v1/data/clientes/buscar-nombre/Andrade
   ```
 
 * **Consultar clientes por identificación (cedula, pasaporte o ruc)**
 
+  GET /api/v1/data/clientes/identificacion/{identification}
+
   ```http
-  GET /api/v1/data/clientes/buscar-nombre/{identification}
+  http://localhost:8080/api/v1/data/clientes/identificacion/1799999999001
   ```
 
 ### Direcciones
 
 * **Agregar dirección con la matriz**
 
-  ```http
   POST /api/v1/data/direcciones/agregar/{companyId}/{identification}
+
+  ```http
+  http://localhost:8080/api/v1/data/direcciones/agregar/1/AB1234567
+  ```
+  Body:
+  
+  ```json
+  {
+    "customerId": 2,
+    "alias": "direccion2",
+    "street": "Av. Amazonas y Colón",
+    "city": "Quito",
+    "province": "Pichincha",
+    "country": "Ecuador",
+    "zip": "170101",
+    "isHeadquarters": false
+  }
   ```
 
 * **Listar direcciones de un cliente**
 
-  ```http
   GET /api/v1/data/direcciones/{companyId}/{identification}
+
+  ```http
+  http://localhost:8080/api/v1/data/direcciones/identificacion/1/1799999999001
   ```
 
 ---
